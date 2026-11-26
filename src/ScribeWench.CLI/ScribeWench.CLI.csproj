@@ -2,7 +2,7 @@
   <PropertyGroup>
     <AssemblyName>scribewench</AssemblyName>
     <OutputType>Exe</OutputType>
-    <!-- What `scribewench --version` says. A release gets its number from its tag (see .github/workflows/release.yml). -->
+    <!-- The version the program reports. A release gets its number from its tag (see .github/workflows/release.yml). -->
     <Version>0.0.0-dev</Version>
     <PublishTrimmed>false</PublishTrimmed>
     <SelfContained>true</SelfContained>
