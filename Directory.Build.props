@@ -6,5 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <RootNamespace>ScribeWench</RootNamespace>
+    <!-- Line numbers in error traces without .pdb files beside the exe. -->
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 </Project>

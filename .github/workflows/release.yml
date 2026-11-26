@@ -1,0 +1,36 @@
+name: Release
+
+# Pushing a tag like v1.2.0 builds scribewench.exe as version 1.2.0 and attaches it to a GitHub
+# release of that name. Making the release by hand on GitHub, with a new tag, does the same.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Test
+        run: dotnet test -c Release
+
+      - name: Build scribewench.exe
+        run: dotnet publish src/ScribeWench.CLI/ScribeWench.CLI.csproj -c Release -r win-x64 -p:Version="${GITHUB_REF_NAME#v}" -o publish
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1 || gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --generate-notes
+          gh release upload "$GITHUB_REF_NAME" publish/scribewench.exe --clobber

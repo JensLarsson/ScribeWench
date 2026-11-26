@@ -2,17 +2,19 @@
   <PropertyGroup>
     <AssemblyName>scribewench</AssemblyName>
     <OutputType>Exe</OutputType>
+    <!-- What `scribewench --version` says. A release gets its number from its tag (see .github/workflows/release.yml). -->
+    <Version>0.0.0-dev</Version>
     <PublishTrimmed>false</PublishTrimmed>
     <SelfContained>true</SelfContained>
     <!--
-      Bundle all managed DLLs into the EXE.
-      Keep native DLLs (ggml, libdave, opus, etc.) as loose files next to the EXE
-      so native library resolvers (Whisper.net, LLamaSharp) can find them via AppContext.BaseDirectory.
-      On Windows, native libs are bundled by default — IncludeNativeLibrariesForSelfExtract=false
-      overrides that, leaving them as loose files and avoiding the %TEMP% extraction issue.
+      Publish makes one exe with everything in it, the native DLLs too (Whisper, LLamaSharp, opus,
+      libsodium, libdave). Whisper.net and LLamaSharp only look for theirs in folders next to the
+      program, so the exe unpacks itself to %TEMP%\.net\scribewench the first time it starts and
+      runs from there.
     -->
     <PublishSingleFile>true</PublishSingleFile>
-    <IncludeNativeLibrariesForSelfExtract>false</IncludeNativeLibrariesForSelfExtract>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
   </PropertyGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="ScribeWench.Tests" />
@@ -27,53 +29,19 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- Discord's voice encryption (DAVE). No package has it, so the DLL is checked in. -->
+    <None Include="..\..\native\win-x64\libdave.dll" Link="libdave.dll" CopyToOutputDirectory="PreserveNewest" Visible="false" />
+  </ItemGroup>
 
-  <!-- Whisper.net.Runtime uses <None> items without CopyToPublishDirectory, so its
-       win-x64 DLLs are missing from the publish output. Copy them explicitly.
-       Strategy: use the CPU package for all shared DLLs (whisper.dll, ggml-whisper.dll,
-       ggml-cpu-whisper.dll, ggml-base-whisper.dll) — these are the stable CPU-compiled
-       versions. Then add ONLY the GPU-backend-specific DLLs from the GPU packages:
-         ggml-cuda-whisper.dll    — NVIDIA CUDA backend (requires CUDA Toolkit 13+)
-         ggml-vulkan-whisper.dll  — AMD/any GPU via Vulkan (included with GPU drivers)
-       Whisper.net probes available backends at load time: CUDA > Vulkan > CPU. -->
-  <Target Name="CopyWhisperNative" AfterTargets="Publish" Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+  <!-- The Whisper and LLamaSharp packages bring native libraries for every system. The exe is for
+       64-bit Windows, so the rest stays out of it. -->
+  <Target Name="PublishWindowsNativesOnly" AfterTargets="ComputeResolvedFilesToPublishList">
     <ItemGroup>
-      <!-- All shared DLLs from CPU package (whisper.dll, ggml-whisper.dll, etc.) -->
-      <_WhisperCpuDll    Include="$(NuGetPackageRoot)whisper.net.runtime\*\build\win-x64\*.dll" />
-      <!-- Backend-specific DLLs only — do NOT copy shared DLLs from GPU packages -->
-      <_WhisperCudaDll   Include="$(NuGetPackageRoot)whisper.net.runtime.cuda.windows\*\build\win-x64\ggml-cuda-whisper.dll" />
-      <_WhisperVulkanDll Include="$(NuGetPackageRoot)whisper.net.runtime.vulkan\*\build\win-x64\ggml-vulkan-whisper.dll" />
+      <_NativeForAnotherSystem Include="@(ResolvedFileToPublish)"
+          Condition="$([System.String]::new('%(RelativePath)').Replace('\', '/').StartsWith('runtimes/')) and !$([System.String]::new('%(RelativePath)').Replace('\', '/').Contains('/win-x64/'))" />
+      <_NativeForAnotherSystem Include="@(ResolvedFileToPublish)" Condition="'%(Filename)%(Extension)' == 'ggml-metal.metal'" />
+      <ResolvedFileToPublish Remove="@(_NativeForAnotherSystem)" />
     </ItemGroup>
-    <MakeDir Directories="$(PublishDir)runtimes\win-x64\" />
-    <Copy SourceFiles="@(_WhisperCpuDll)"    DestinationFolder="$(PublishDir)runtimes\win-x64\" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(_WhisperCudaDll)"   DestinationFolder="$(PublishDir)runtimes\win-x64\" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(_WhisperVulkanDll)" DestinationFolder="$(PublishDir)runtimes\win-x64\" SkipUnchangedFiles="true" />
-  </Target>
-
-  <!-- LLamaSharp.Backend.Cpu uses LLamaSharpRuntimes/ (non-standard path) instead of runtimes/,
-       so the .NET publish pipeline creates the avx/avx2/etc. directories but leaves them empty.
-       Copy DLLs explicitly, preserving the avx-variant subdirectory structure. -->
-  <Target Name="CopyLlamaSharpNative" AfterTargets="Publish" Condition="'$(RuntimeIdentifier)' == 'win-x64'">
-    <ItemGroup>
-      <_LlamaDll Include="$(NuGetPackageRoot)llamasharp.backend.cpu\*\LLamaSharpRuntimes\win-x64\native\**\*.dll" />
-    </ItemGroup>
-    <Copy SourceFiles="@(_LlamaDll)"
-          DestinationFiles="@(_LlamaDll->'$(PublishDir)runtimes\win-x64\native\%(RecursiveDir)%(Filename)%(Extension)')"
-          SkipUnchangedFiles="true" />
-  </Target>
-
-  <!-- Discord.Net native DLLs must sit next to the EXE so the OS P/Invoke loader finds them.
-       opus.dll — Opus codec for voice audio decode
-       libsodium.dll — NaCl encryption (fallback / non-DAVE paths)
-       libdave.dll — Discord DAVE E2EE (provided as a checked-in binary) -->
-  <Target Name="CopyDiscordNative" AfterTargets="Publish" Condition="'$(RuntimeIdentifier)' == 'win-x64'">
-    <ItemGroup>
-      <_OpusDll    Include="$(NuGetPackageRoot)opusdotnet.opus.win-x64\*\runtimes\win-x64\native\opus.dll" />
-      <_SodiumDll  Include="$(NuGetPackageRoot)libsodium\*\runtimes\win-x64\native\libsodium.dll" />
-      <_LibDaveDll Include="$(MSBuildProjectDirectory)\..\..\native\win-x64\libdave.dll" />
-    </ItemGroup>
-    <Copy SourceFiles="@(_OpusDll)"    DestinationFolder="$(PublishDir)" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(_SodiumDll)"  DestinationFolder="$(PublishDir)" SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(_LibDaveDll)" DestinationFolder="$(PublishDir)" SkipUnchangedFiles="true" />
   </Target>
 </Project>

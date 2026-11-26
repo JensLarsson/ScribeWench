@@ -1,14 +1,18 @@
+using System.Reflection;
+using ScribeWench.CLI;
 using ScribeWench.CLI.Commands;
 using ScribeWench.CLI.Config;
 using ScribeWench.Core;
 using Spectre.Console;
 using Spectre.Console.Cli;
 
+UnpackedFiles.Hold();
+
 var app = new CommandApp();
 app.Configure(config =>
 {
     config.SetApplicationName("scribewench");
-    config.SetApplicationVersion("1.0.0");
+    config.SetApplicationVersion(BuildVersion());
 
     config.AddCommand<SetupCommand>("setup")
         .WithDescription("Interactive setup: the Discord bot, the Whisper model, who writes the session notes, and where they go.")
@@ -52,6 +56,10 @@ if (!Console.IsInputRedirected)
     Console.ReadLine();
 }
 return result;
+
+// The build's version without the commit the SDK adds after a plus sign.
+static string BuildVersion() =>
+    typeof(SetupCommand).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0] ?? "unknown";
 
 static async Task<bool> IsConfiguredAsync()
 {

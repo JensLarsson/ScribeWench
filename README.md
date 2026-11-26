@@ -6,11 +6,15 @@ It runs on Windows. The bot is your own: you create it on Discord, which is free
 
 ## Setup
 
+Download `scribewench.exe` from the [latest release](https://github.com/JensLarsson/ScribeWench/releases/latest). It is a single file and needs no installing: put it anywhere and double-click it, or run
+
 ```
 scribewench setup
 ```
 
-Double-clicking `scribewench.exe` does the same the first time. Setup takes you through four things:
+Windows may warn about an unknown publisher the first time; choose **More info**, then **Run anyway**. The first start takes a few seconds longer than later ones.
+
+Setup takes you through four things:
 
 1. **The Discord bot.** Creating it, pasting its token and adding it to your server.
 2. **Transcription.** The Whisper model that suits your graphics card, downloaded for you.
@@ -74,10 +78,19 @@ This adds a second note. With `--replace`, it replaces the session's note instea
 
 ## Build
 
-Requires the [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9).
+Requires the [.NET SDK](https://dotnet.microsoft.com/download), version 9 or later.
 
 ```
 dotnet publish src/ScribeWench.CLI/ScribeWench.CLI.csproj -c Release -r win-x64 -o ./publish/win-x64
 ```
 
-The result is `publish/win-x64/scribewench.exe`. The DLLs next to it must stay in the same folder.
+The result is `publish/win-x64/scribewench.exe`, the same single file as a release.
+
+To make a release, push a tag with the version:
+
+```
+git tag v1.2.0
+git push origin v1.2.0
+```
+
+GitHub then runs the tests, builds the exe as version 1.2.0 and attaches it to a release named `v1.2.0`.
