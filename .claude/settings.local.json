@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:docs.discordnet.dev)",
+      "Bash(dotnet new:*)",
+      "Bash(dotnet sln:*)",
+      "Bash(dotnet restore:*)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet publish:*)",
+      "Bash(powershell -command \"\\(Get-Item ''C:/Program Files/Audacity/opus.dll''\\).VersionInfo\")",
+      "Bash(dotnet package:*)",
+      "Bash(gh release:*)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(curl:*)",
+      "Bash(unzip:*)",
+      "Bash(dotnet test:*)",
+      "Bash(rm:*)",
+      "Bash(D:/GitHub/ScribeWench/publish/win-x64/scribewench.exe:*)",
+      "Bash(grep:*)",
+      "Bash(taskkill:*)",
+      "Bash(cmd:*)",
+      "Bash(powershell:*)",
+      "WebFetch(domain:www.nuget.org)",
+      "WebFetch(domain:dsharpplus.github.io)",
+      "Bash(ls:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:dsharpplus.readthedocs.io)",
+      "WebFetch(domain:discord.com)",
+      "WebFetch(domain:discord-api-types.dev)",
+      "WebFetch(domain:docs.discord.com)",
+      "WebFetch(domain:daveprotocol.com)",
+      "Bash(dotnet list:*)"
+    ]
+  }
+}

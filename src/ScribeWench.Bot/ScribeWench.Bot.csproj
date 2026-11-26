@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>ScribeWench.Bot</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ScribeWench.Core\ScribeWench.Core.csproj" />
+    <ProjectReference Include="..\ScribeWench.Transcription\ScribeWench.Transcription.csproj" />
+    <ProjectReference Include="..\ScribeWench.AI\ScribeWench.AI.csproj" />
+    <PackageReference Include="Discord.Net" />
+    <PackageReference Include="OpusDotNet.Opus.win-x64" />
+    <PackageReference Include="libsodium" />
+    <PackageReference Include="NAudio" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+</Project>

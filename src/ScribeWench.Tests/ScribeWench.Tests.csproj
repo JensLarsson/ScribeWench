@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <!-- The CLI is a self-contained exe; the tests only load its code, so the mismatch doesn't matter. -->
+    <ValidateExecutableReferencesMatchSelfContained>false</ValidateExecutableReferencesMatchSelfContained>
+    <!-- So the tests also run where only a newer runtime than net9.0 is installed. -->
+    <RollForward>Major</RollForward>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="Spectre.Console.Testing" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ScribeWench.Core\ScribeWench.Core.csproj" />
+    <ProjectReference Include="..\ScribeWench.AI\ScribeWench.AI.csproj" />
+    <ProjectReference Include="..\ScribeWench.Bot\ScribeWench.Bot.csproj" />
+    <ProjectReference Include="..\ScribeWench.CLI\ScribeWench.CLI.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+    <Using Include="ScribeWench.AI.Backends" />
+    <Using Include="ScribeWench.AI.Notes" />
+    <Using Include="ScribeWench.AI.Summaries" />
+    <Using Include="ScribeWench.Core" />
+  </ItemGroup>
+</Project>

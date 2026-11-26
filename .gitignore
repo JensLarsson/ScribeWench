@@ -1,0 +1,25 @@
+# Build outputs
+**/bin/
+**/obj/
+publish/
+
+# User-specific files
+*.user
+*.suo
+.vs/
+.idea/
+*.DotSettings.user
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# Runtime config / secrets
+~/.scribewench/
+appsettings.*.json
+!appsettings.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

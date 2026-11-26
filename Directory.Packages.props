@@ -1,0 +1,47 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Spectre.Console -->
+    <PackageVersion Include="Spectre.Console" Version="0.49.1" />
+    <PackageVersion Include="Spectre.Console.Cli" Version="0.49.1" />
+    <PackageVersion Include="Spectre.Console.Testing" Version="0.49.1" />
+    <!-- Hosting -->
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.Options" Version="9.0.4" />
+    <!-- Discord.Net -->
+    <!-- Nightly: 3.20.1/3.20.2 fail the DAVE handshake when joining voice (#3288). Move to the next release once it's out. -->
+    <PackageVersion Include="Discord.Net" Version="3.20.2-nightly.20261111.899" />
+    <!-- Native audio DLLs required by Discord.Net voice (opus codec + sodium encryption) -->
+    <PackageVersion Include="OpusDotNet.Opus.win-x64" Version="1.3.1" />
+    <PackageVersion Include="libsodium" Version="1.0.22" />
+    <!-- NAudio -->
+    <PackageVersion Include="NAudio" Version="2.2.1" />
+    <!-- Whisper.net -->
+    <PackageVersion Include="Whisper.net" Version="1.9.0" />
+    <PackageVersion Include="Whisper.net.Runtime" Version="1.9.0" />
+    <PackageVersion Include="Whisper.net.Runtime.Cuda" Version="1.9.0" />
+    <PackageVersion Include="Whisper.net.Runtime.Cuda.Windows" Version="1.9.0" />
+    <PackageVersion Include="Whisper.net.Runtime.Vulkan" Version="1.9.0" />
+    <!-- LLamaSharp -->
+    <PackageVersion Include="LLamaSharp" Version="0.27.0" />
+    <PackageVersion Include="LLamaSharp.Backend.Cpu" Version="0.27.0" />
+    <!-- Anthropic -->
+    <PackageVersion Include="Anthropic" Version="13.8.0" />
+    <!-- Reading the text of PDFs attached to !scribe edit -->
+    <PackageVersion Include="PdfPig" Version="0.1.16" />
+    <!-- JSON -->
+    <PackageVersion Include="System.Text.Json" Version="9.0.0" />
+    <!-- Test -->
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageVersion Include="xunit" Version="2.9.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
+  </ItemGroup>
+</Project>

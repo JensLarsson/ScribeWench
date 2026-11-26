@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BF13D3C9-0240-4206-91FF-6D7C19BB01C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScribeWench.Core", "src\ScribeWench.Core\ScribeWench.Core.csproj", "{8D2082B1-B12D-4330-A65B-F7F9B8B7AE43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScribeWench.Transcription", "src\ScribeWench.Transcription\ScribeWench.Transcription.csproj", "{1DD4CBC6-6F84-4D9D-B761-5A7A4130EC79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScribeWench.AI", "src\ScribeWench.AI\ScribeWench.AI.csproj", "{AB9D5EA0-9D86-4947-AD39-65BEB02759A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScribeWench.Bot", "src\ScribeWench.Bot\ScribeWench.Bot.csproj", "{2E5E2284-0649-498B-B8A9-D30E1BB7213A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScribeWench.CLI", "src\ScribeWench.CLI\ScribeWench.CLI.csproj", "{68D3DEF7-5736-4D74-9F6F-552FBA9A8710}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScribeWench.Tests", "src\ScribeWench.Tests\ScribeWench.Tests.csproj", "{786C4CAE-1470-40F9-9EE4-E19BB2ABABC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D2082B1-B12D-4330-A65B-F7F9B8B7AE43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D2082B1-B12D-4330-A65B-F7F9B8B7AE43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D2082B1-B12D-4330-A65B-F7F9B8B7AE43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D2082B1-B12D-4330-A65B-F7F9B8B7AE43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DD4CBC6-6F84-4D9D-B761-5A7A4130EC79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DD4CBC6-6F84-4D9D-B761-5A7A4130EC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DD4CBC6-6F84-4D9D-B761-5A7A4130EC79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DD4CBC6-6F84-4D9D-B761-5A7A4130EC79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB9D5EA0-9D86-4947-AD39-65BEB02759A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB9D5EA0-9D86-4947-AD39-65BEB02759A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB9D5EA0-9D86-4947-AD39-65BEB02759A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB9D5EA0-9D86-4947-AD39-65BEB02759A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E5E2284-0649-498B-B8A9-D30E1BB7213A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E5E2284-0649-498B-B8A9-D30E1BB7213A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E5E2284-0649-498B-B8A9-D30E1BB7213A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E5E2284-0649-498B-B8A9-D30E1BB7213A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68D3DEF7-5736-4D74-9F6F-552FBA9A8710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68D3DEF7-5736-4D74-9F6F-552FBA9A8710}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68D3DEF7-5736-4D74-9F6F-552FBA9A8710}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68D3DEF7-5736-4D74-9F6F-552FBA9A8710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{786C4CAE-1470-40F9-9EE4-E19BB2ABABC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{786C4CAE-1470-40F9-9EE4-E19BB2ABABC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{786C4CAE-1470-40F9-9EE4-E19BB2ABABC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{786C4CAE-1470-40F9-9EE4-E19BB2ABABC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8D2082B1-B12D-4330-A65B-F7F9B8B7AE43} = {BF13D3C9-0240-4206-91FF-6D7C19BB01C6}
+		{1DD4CBC6-6F84-4D9D-B761-5A7A4130EC79} = {BF13D3C9-0240-4206-91FF-6D7C19BB01C6}
+		{AB9D5EA0-9D86-4947-AD39-65BEB02759A4} = {BF13D3C9-0240-4206-91FF-6D7C19BB01C6}
+		{2E5E2284-0649-498B-B8A9-D30E1BB7213A} = {BF13D3C9-0240-4206-91FF-6D7C19BB01C6}
+		{68D3DEF7-5736-4D74-9F6F-552FBA9A8710} = {BF13D3C9-0240-4206-91FF-6D7C19BB01C6}
+		{786C4CAE-1470-40F9-9EE4-E19BB2ABABC8} = {BF13D3C9-0240-4206-91FF-6D7C19BB01C6}
+	EndGlobalSection
+EndGlobal
